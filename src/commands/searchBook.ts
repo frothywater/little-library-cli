@@ -91,7 +91,7 @@ export default class SearchBookCommand extends Command {
             const bookRows = await library.searchBook(
                 searchParams,
                 sorting as keyof BookRow | undefined,
-                order == "asc"
+                order === "asc"
             )
 
             printBooks(bookRows)

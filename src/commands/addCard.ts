@@ -26,9 +26,9 @@ export default class AddCardCommand extends Command {
             type: typeStr,
         }: { [name: string]: string } = args
         let type: CardType
-        if (typeStr.toLowerCase() == CardType.student.toLowerCase())
+        if (typeStr.toLowerCase() === CardType.student.toLowerCase())
             type = CardType.student
-        else if (typeStr.toLowerCase() == CardType.teacher.toLowerCase())
+        else if (typeStr.toLowerCase() === CardType.teacher.toLowerCase())
             type = CardType.teacher
         else this.error(`Card type should either be "Teacher" or "Student".`)
 

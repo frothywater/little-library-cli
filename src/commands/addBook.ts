@@ -101,7 +101,7 @@ export default class AddBookCommand extends Command {
                 this.error("Cannot read file. Please check your file.")
             )
         const lines = fileString.split("\n")
-        if (lines.length == 0) this.error(badFormatMessage)
+        if (lines.length === 0) this.error(badFormatMessage)
 
         return lines
             .filter((line) => line !== "")
