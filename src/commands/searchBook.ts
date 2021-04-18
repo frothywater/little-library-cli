@@ -7,10 +7,12 @@ import { SecurityStatus } from "../utilities/typing"
 const sortingKeys = ["title", "author", "press", "category", "year", "price"]
 
 export default class SearchBookCommand extends Command {
-    static description =
-        "Search books conforming to a certain series of conditions. Results are limited to 50 books."
+    static description = `Search books conforming to a certain series of conditions.
+        Results are limited to 50 books.`
 
-    static examples = ["$ little-library searchBook"]
+    static examples = [
+        `$ little-library searchBook --title="Alice in Wonderland"`,
+    ]
 
     static flags = {
         title: flags.string({ char: "t", description: "Keyword in title" }),
