@@ -17,7 +17,7 @@ export default class ShowCardCommand extends Command {
         const { cardID: cardIDString }: { [name: string]: string } = args
         const cardID = parseInt(cardIDString, 10)
         if (!cardID)
-            this.error("Card ID needs to be a number. Please check your input.")
+            this.error("Card ID should be a number. Please check your input.")
 
         const result = await openLibrary(this.config.cacheDir)
         switch (result.status) {
