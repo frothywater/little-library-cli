@@ -1,8 +1,7 @@
 import { Command } from "@oclif/command"
 import cli from "cli-ux"
-import * as fs from "fs"
 import { Database } from "little-library"
-import * as path from "path"
+import { deleteAdminFile, writeAdminFile } from "../utilities/security"
 
 export default class LoginAdminCommand extends Command {
     static description =
@@ -11,13 +10,7 @@ export default class LoginAdminCommand extends Command {
     async run(): Promise<void> {
         this.log("Login via database administrator")
 
-        const { cacheDir } = this.config
-        const infoFilePath = path.join(cacheDir, "./admin.dat")
-        await fs.promises
-            .access(infoFilePath)
-            .then(() => fs.promises.unlink(infoFilePath))
-            // eslint-disable-next-line @typescript-eslint/no-empty-function
-            .catch((_err) => {})
+        await deleteAdminFile(this.config.cacheDir)
 
         const username: string = await cli.prompt("Username")
         const password: string = await cli.prompt("Password", { type: "hide" })
@@ -26,10 +19,14 @@ export default class LoginAdminCommand extends Command {
         try {
             const db = new Database(username, password, database)
             await db.connect()
-            const loginInfoString = `${username}\n${password}\n${database}\n`
-            await fs.promises.writeFile(infoFilePath, loginInfoString)
-            await db.close()
+
+            await writeAdminFile(
+                { username, password, database },
+                this.config.cacheDir
+            )
+
             this.log("Login success!")
+            await db.close()
         } catch (err) {
             this.error("Sorry, login failed... Please check your input again.")
         }
