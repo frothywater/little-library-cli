@@ -1,6 +1,7 @@
 import * as fs from "fs"
+import { Database, Library } from "little-library"
 import * as path from "path"
-import { AdminInfo, ManagerInfo } from "./typing"
+import { AdminInfo, LibraryResult, ManagerInfo, SecurityStatus } from "./typing"
 
 const adminFileName = "./admin.dat"
 const managerFileName = "./manager.dat"
@@ -79,5 +80,34 @@ export async function readManagerFile(
         else return null
     } catch {
         return null
+    }
+}
+
+export async function openLibrary(cacheDir: string): Promise<LibraryResult> {
+    try {
+        const adminInfo = await readAdminFile(cacheDir)
+        if (!adminInfo) return { status: SecurityStatus.adminNotLoggedIn }
+        const {
+            username: adminUsername,
+            password: adminPassword,
+            database,
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        } = adminInfo!
+
+        const managerInfo = await readManagerFile(cacheDir)
+        if (!adminInfo) return { status: SecurityStatus.managerNotLoggedIn }
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        const { username, password } = managerInfo!
+
+        const db = new Database(adminUsername, adminPassword, database)
+        await db.connect()
+
+        const library = new Library(db)
+        const success = await library.checkManager(username, password)
+        if (!success) return { status: SecurityStatus.managerNotLoggedIn }
+
+        return { status: SecurityStatus.ok, library }
+    } catch {
+        return { status: SecurityStatus.error }
     }
 }
