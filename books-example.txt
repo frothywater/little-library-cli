@@ -1,0 +1,2 @@
+("Guide to Cook Boiled Egg", Jim, Penguin, Bestseller, 2020, 10.00, 5)
+("Say Yes to McDonald", Emma, Penguin, Bestseller, 2010, 12.00, 10)
