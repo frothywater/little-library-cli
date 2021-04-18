@@ -9,8 +9,8 @@ const lineRegex = /^\((([^\s",]+|".*"),\s?){6}([^\s",]+|".*")\)$/
 const partRegex = /((?<=").+(?="))|[^\s",]+/g
 
 export default class AddBookCommand extends Command {
-    static description = `Add a library card.
-Apart from input on console, using a file containing information of the books is also supported.
+    static description = `Add one book or several books into library.
+Apart from console input, using a file containing information of the books is also supported.
 File should only contain several lines, which should be formatted by:
 (TITLE, AUTHOR, PRESS, CATEGORY, YEAR, PRICE, COUNT)`
 
