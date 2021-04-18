@@ -1,4 +1,4 @@
-import { Command } from "@oclif/command"
+import { Command, flags } from "@oclif/command"
 import { printBooks } from "../utilities/console"
 import { openLibrary } from "../utilities/security"
 import { SecurityStatus } from "../utilities/typing"
@@ -6,13 +6,15 @@ import { SecurityStatus } from "../utilities/typing"
 export default class ShowCardCommand extends Command {
     static description = `Show the borrowed books under a card.`
 
-    static examples = [`$ little-library showCard 1"`]
+    static examples = [`$ little-library showCard 1`]
 
-    static args = [{ name: "cardIDString", required: true }]
+    static flags = { help: flags.help({ char: "h" }) }
+
+    static args = [{ name: "cardID", required: true }]
 
     async run(): Promise<void> {
         const { args } = this.parse(ShowCardCommand)
-        const { cardIDString } = args
+        const { cardID: cardIDString }: { [name: string]: string } = args
         const cardID = parseInt(cardIDString, 10)
         if (!cardID)
             this.error("Card ID needs to be a number. Please check your input.")

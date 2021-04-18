@@ -1,6 +1,6 @@
 import { Command, flags } from "@oclif/command"
-import cli from "cli-ux"
 import { BookRow, BookSearchParams } from "little-library"
+import { printBooks } from "../utilities/console"
 import { openLibrary } from "../utilities/security"
 import { SecurityStatus } from "../utilities/typing"
 
@@ -94,17 +94,7 @@ export default class SearchBookCommand extends Command {
                 order == "asc"
             )
 
-            cli.table(bookRows, {
-                id: {},
-                title: {},
-                author: {},
-                press: {},
-                category: {},
-                year: {},
-                price: { get: (row) => row.price.toFixed(2) },
-                total: {},
-                stock: {},
-            })
+            printBooks(bookRows)
 
             await library.close()
         } catch {
