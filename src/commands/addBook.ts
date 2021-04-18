@@ -10,9 +10,9 @@ const partRegex = /((?<=").+(?="))|[^\s",]+/g
 
 export default class AddBookCommand extends Command {
     static description = `Add a library card.
-    Apart from input on console, using a file containing information of the books is also supported.
-    File should only contain several lines, which should be formatted by:
-    (TITLE, AUTHOR, PRESS, CATEGORY, YEAR, PRICE, COUNT)`
+Apart from input on console, using a file containing information of the books is also supported.
+File should only contain several lines, which should be formatted by:
+(TITLE, AUTHOR, PRESS, CATEGORY, YEAR, PRICE, COUNT)`
 
     static examples = [
         `$ little-library addBook "Guide to Cook Boiled Egg" Jim Penguin Bestseller 2020 10.00 5`,

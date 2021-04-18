@@ -42,18 +42,24 @@ export default class BorrowCommand extends Command {
         if (!cardExists) this.error("Card not found. Please check your input.")
         const bookExists = await library.existBook(bookID)
         if (!bookExists) this.error("Book not found. Please check your input.")
+        const alreadyBorrowed = await library.getBorrowStatus(cardID, bookID)
+        if (alreadyBorrowed)
+            this.error(
+                "The book is already borrowed by the owner of the library card."
+            )
 
         try {
             const borrowResult = await library.borrowBook(
                 cardID,
                 bookID,
-                result.manager.id
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                result.manager!.id
             )
 
             if (borrowResult.success) this.log("Success!")
             else
                 this.log(`Out of stock. It's estimated that the earliest date
-when the book will be available is ${borrowResult.estimatedAvailableDate.toLocaleDateString()}`)
+when the book will be available is ${borrowResult.estimatedAvailableDate?.toLocaleDateString()}`)
 
             await library.close()
         } catch {
