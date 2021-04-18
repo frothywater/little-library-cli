@@ -1,4 +1,4 @@
-import { Library } from "little-library"
+import { Library, ManagerRow } from "little-library"
 
 export interface AdminInfo {
     username: string
@@ -20,5 +20,6 @@ export enum SecurityStatus {
 
 export interface LibraryResult {
     status: SecurityStatus
+    manager?: ManagerRow
     library?: Library
 }

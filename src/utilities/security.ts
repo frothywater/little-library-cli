@@ -103,10 +103,10 @@ export async function openLibrary(cacheDir: string): Promise<LibraryResult> {
         await db.connect()
 
         const library = new Library(db)
-        const success = await library.checkManager(username, password)
-        if (!success) return { status: SecurityStatus.managerNotLoggedIn }
+        const manager = await library.checkManager(username, password)
+        if (!manager) return { status: SecurityStatus.managerNotLoggedIn }
 
-        return { status: SecurityStatus.ok, library }
+        return { status: SecurityStatus.ok, manager, library }
     } catch {
         return { status: SecurityStatus.error }
     }
