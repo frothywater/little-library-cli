@@ -1,9 +1,11 @@
 # little-library-cli
 
 A little library management system based on MySQL.
-This repo provides a CLI implementation.
+This repo provides a CLI implementation, proudly powered by [`oclif`](https://oclif.io). Cross-platform App is also provided by [`little-library-app`](https://github.com/frothywater/little-library-app).
 
-Declaration: This project as a coursework of _Database Manage System_ fully belongs to @frothywater.
+## Declaration
+
+This project as a coursework of _Database Manage System_ fully belongs to @frothywater.
 
 ## Commands
 
